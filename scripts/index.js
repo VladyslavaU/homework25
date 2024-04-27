@@ -1,6 +1,8 @@
 import Slider from './slider.js';
+import Swiper from './swiper.js';
 
-let slider = new Slider();
-// let swiper = new Swiper();
-slider.init();
-// swiper.init();
+// let slider = new Slider();
+// slider.init();
+
+let swiper = new Swiper();
+swiper.init();
