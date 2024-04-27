@@ -1,22 +1,27 @@
-import {Slider} from "./slider";
+import KeyControl from "./keyControl.js";
 
 function Dragger() {
-    Slider.apply(this, arguments);
+    KeyControl.apply(this, arguments);
     this._isDragging = false;
     this._dragStart = 0;
-    this._initListeners();
+    this._startDragging = this._startDragging.bind(this);
+    this._drag = this._drag.bind(this);
 }
 
-Dragger.prototype = Object.create(Slider.prototype);
+Dragger.prototype = Object.create(KeyControl.prototype);
+Dragger.prototype.constructor = Dragger;
 
 Dragger.prototype._initListeners = function () {
-    this._drag = this._drag.bind(this);
-    this._startDragging = this._startDragging.bind(this);
+    KeyControl.prototype._initListeners.apply(this);
+    this._SLIDES.forEach((slide, index) => {
+        slide.addEventListener('mousedown', this._startDragging);
+        slide.addEventListener('mousemove', this._drag);
+    });
 }
 
 Dragger.prototype._drag = function (event) {
     if (this._isDragging) {
-        if (Slider.prototype.slideDirection.call(event.clientX - this._dragStart, 200)) {
+        if (this.slideDirection(event.clientX - this._dragStart, 200)) {
             this._dragStart = event.clientX;
             this._isDragging = false;
         }
@@ -28,4 +33,6 @@ Dragger.prototype._startDragging = function (event) {
     this._dragStart = event.clientX;
 }
 
-export { Dragger };
+export default Dragger;
+
+

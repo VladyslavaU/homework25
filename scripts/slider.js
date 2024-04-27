@@ -16,9 +16,6 @@ function Slider(containerId = '.slider', slideId = '.slide', interval = 2000, cu
     this.goToSlide = this.goToSlide.bind(this);
     this.selectSlide = this.goToSlide.bind(this);
     this.slideDirection = this.slideDirection.bind(this);
-
-    // NOTE: dummy code below
-    // this.init();
 }
 
 Slider.prototype = {
@@ -32,7 +29,6 @@ Slider.prototype = {
             this._POINTERS.appendChild(POINTER);
         }
         this._SLIDER.appendChild(this._POINTERS);
-        console.log('init pointers')
     },
     _initControls() {
         const CONTROLS = document.createElement('div');
@@ -46,8 +42,6 @@ Slider.prototype = {
         this.POWER = this._SLIDER.querySelector('#power');
         this.PREVIOUS = this._SLIDER.querySelector('#previous');
         this.NEXT = this._SLIDER.querySelector('#next');
-        console.log('init controls')
-        console.log('power ' + this.POWER.innerHTML)
     },
     _initListeners() {
         this.POWER.addEventListener('click', this.power);
@@ -55,8 +49,6 @@ Slider.prototype = {
         this.PREVIOUS.addEventListener('click', this.previousSlide);
     },
     init() {
-        console.log('Slider init...')
-
         this._initPointers();
         this._initControls();
         this._initListeners();
@@ -120,14 +112,7 @@ Slider.prototype.slideDirection = function (distance, sensitivity) {
         } else {
             this.nextSlideClick();
         }
-
-        console.log('swipe distance:' + distance)
-
         return true;
-    }
-    else {
-        console.log('wrong sensitivity! current one is:' + Math.abs(distance) + ';defined sensitivity: ' + sensitivity);
-        // this.nextSlideClick();
     }
 }
 
